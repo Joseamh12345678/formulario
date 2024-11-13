@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import formRoutes from './routes/formRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import surveyRoutes from './routes/surveyRoutes.js';
-import cors from "cors"
+import cors from "cors";
 
 mongoose
   .connect('mongodb://localhost:27017/formulario')
@@ -14,37 +14,31 @@ mongoose
     console.error('Error al conectar a la BD:', error);
   });
 
-  const app = express();
+const app = express();
 
-  app.use(express.json());
-  app.use(cors());
-  
-  app.get('/', (req, res) => {
-    res.send('Hola desde mi servidor');
-  });
+app.use(express.json());
+app.use(cors());
 
-  app.post("/create",(req,res)=>{
-    const pregunta_1 = req.body.pregunta_1;
-    const pregunta_2 = req.body.pregunta_2;
-    const pregunta_3 = req.body.pregunta_3;
-    const pregunta_4 = req.body.pregunta_4;
-    if(!pregunta_1 || !pregunta_2 || !pregunta_3 || !pregunta_4 || !pregunta_5 || !pregunta_6){
-        return res.status(4000).json({
-            msg:"Necesitamos todos los valores para almacenar un documento!"
-        })
+app.get('/', (req, res) => {
+  res.send('Hola desde mi servidor');
+});
 
-      }
-  })
-  
-  app.listen(4000,()=>{
-      console.log("servidor en linea")
-  })
+app.post("/create", (req, res) => {
+  const { pregunta_1, pregunta_2, pregunta_3, pregunta_4, pregunta_5, pregunta_6 } = req.body;
+  if (!pregunta_1 || !pregunta_2 || !pregunta_3 || !pregunta_4 || !pregunta_5 || !pregunta_6) {
+    return res.status(400).json({
+      msg: "Necesitamos todos los valores para almacenar un documento!"
+    });
+  }
+  // Aquí se puede agregar la lógica para almacenar el documento en la base de datos
+  res.status(201).json({ msg: "Documento creado exitosamente!" });
+});
 
-  app.use('/form', formRoutes);
-  app.use('/users', userRoutes);
-  app.use('/create', surveyRoutes)
-  app.use('/surveys', surveyRoutes);
+app.use('/form', formRoutes);
+app.use('/users', userRoutes);
+app.use('/create', surveyRoutes);
+app.use('/surveys', surveyRoutes);
 
-  app.listen(4000, () => {
-    console.log('Servidor en linea en el puerto 4000');
-  });
+app.listen(4000, () => {
+  console.log('Servidor en línea en el puerto 4000');
+});
