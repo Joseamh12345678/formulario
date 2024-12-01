@@ -25,7 +25,7 @@ function App() {
         title: "Enviando los datos",
         didOpen: () => Swal.showLoading()
       });
-      await axios.post("http://localhost:4000/form", preguntas);
+      await axios.post("http://localhost:4000/save-answers", preguntas);
       Swal.fire("Datos registrados con éxito", "", "success");
     } catch (error) {
       Swal.fire("Ocurrió un error al registrar los datos", "", "error");

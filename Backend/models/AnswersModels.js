@@ -1,14 +1,6 @@
 import mongoose from 'mongoose';
 
-const DatesSchema = new mongoose.Schema({
-  Estudiante_nombre: {
-    type: String,
-    required: true,
-  },
-  Estudiante_carrera: {
-    type: String,
-    required: true,
-  },
+const AnswersSchema = new mongoose.Schema({
   Respuesta_1: {
     type: String,
     required: true,
@@ -27,4 +19,4 @@ const DatesSchema = new mongoose.Schema({
   },
 });
 
-export const DatesModel = mongoose.model('dates', DatesSchema);
+export const AnswersModels = mongoose.model('answers', AnswersModelsSchemaSchema);
